@@ -18,12 +18,15 @@ import _osx_support as osx
 
 
 def main():
+    f = open("dir.txt","at")
     path = os.walk(".")
     for root, directories, files in path:
         for directory in directories:
             print(directory)
         for file in files:
             print(file)
+
+    f.close()
     return
 
 
