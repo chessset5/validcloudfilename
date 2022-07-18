@@ -47,6 +47,8 @@ def thisandlowerrename():
             end loop
     '''
 
+    # Testing VS Code using iPad OS Web App using GitHub
+
     path = os.walk(".")
     for dirpath, dirnames, filenames in path:
 
