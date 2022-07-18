@@ -16,9 +16,20 @@ r'''
 import os
 import _osx_support as osx
 
+# main
+
 
 def main():
-    f = open("dir.txt","at")
+    printdirtf()
+    return
+
+# print directory to file
+#   This function takes the current directory and outputs
+#   it to a file named dir.txt in a tree like structure.
+
+
+def printdirtf():
+    f = open("dir.txt", "at")
     path = os.walk(".")
     for root, directories, files in path:
         for directory in directories:
@@ -29,8 +40,9 @@ def main():
     f.close()
     return
 
+# Takes in a string and removes all invalid characters accoring to OneDrive
 
-# Takes in a string and removes all invalid characters accoring to OneNote
+
 def stringClean(input: str) -> str:
     badString = "\"/\*:?|<>"
     output = ""
