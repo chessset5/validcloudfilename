@@ -11,27 +11,54 @@ r'''
 # https://www.adamsmith.haus/python/answers/how-to-traverse-a-directory-in-python
 # https://docs.python.org/3/library/platform.html
 
-
-# '
+from msilib import _directories
 import os
 import _osx_support as osx
 
-# main
-
 
 def main():
+    # thisandlowerrename()
     printdirtf()
     return
 
-# print directory to file
-#   This function takes the current directory and outputs
-#   it to a file named dir.txt in a tree like structure.
+
+def thisandlowerrename():
+    # Traverses the directories from the script
+    # to the end of the subdirectories scanning
+    # and fixing invalid names
+    '''
+        TODO:
+            Loop though the directories
+                For each dir load all the file names into a set
+                Make a list for renames
+                loop Check all names against a character checker function
+                    TODO:
+                        Make Character Checker Function
+                    If the name is bad run it through the stringClean() funciton
+                    Add the name to the filename set
+                    If the set size doesn't increase see if the file name has a postfix (#)
+                    TODO:
+                        Make a function that checks for postfix
+                        Make a function that adds a postfix
+                    loop until set size increases
+                        If it does have a postfix, incriment current file
+                        end loop
+                end loop
+            end loop
+    '''
+
+    path = os.walk(".")
+    for dirpath, dirnames, filenames in path:
+
+        break
+
+    return
 
 
 def printdirtf():
-    # f = open("dir.txt", "at")
-    path = os.walk(".")
-    print("#####")
+    # print directory to file
+    #   This function takes the current directory and outputs
+    path = os.walk(".", False)
     for root, directories, files in path:
         print("root:\t"+root)
         for directory in directories:
@@ -39,13 +66,11 @@ def printdirtf():
         for file in files:
             print("\tfile:\tf:"+file)
 
-    # f.close()
     return
-
-# Takes in a string and removes all invalid characters accoring to OneDrive
 
 
 def stringClean(input: str) -> str:
+    # Takes in a string and removes all invalid characters accoring to OneDrive
     badString = "\"/\*:?|<>"
     output = ""
     for c in input:
@@ -54,10 +79,6 @@ def stringClean(input: str) -> str:
         else:
             output += c
     return output
-
-
-def findNextString():
-    return
 
 
 if __name__ == "__main__":
