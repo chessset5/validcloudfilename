@@ -31,12 +31,13 @@ def main():
 def printdirtf():
     # f = open("dir.txt", "at")
     path = os.walk(".")
+    print("#####")
     for root, directories, files in path:
-        print(root)
+        print("root:\t"+root)
         for directory in directories:
-            print(directory)
+            print("\tdir:\td:"+directory)
         for file in files:
-            print(file)
+            print("\tfile:\tf:"+file)
 
     # f.close()
     return
