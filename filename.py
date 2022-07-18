@@ -29,15 +29,16 @@ def main():
 
 
 def printdirtf():
-    f = open("dir.txt", "at")
+    # f = open("dir.txt", "at")
     path = os.walk(".")
     for root, directories, files in path:
+        print(root)
         for directory in directories:
             print(directory)
         for file in files:
             print(file)
 
-    f.close()
+    # f.close()
     return
 
 # Takes in a string and removes all invalid characters accoring to OneDrive
