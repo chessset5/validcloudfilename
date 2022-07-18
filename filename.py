@@ -11,7 +11,6 @@ r'''
 # https://www.adamsmith.haus/python/answers/how-to-traverse-a-directory-in-python
 # https://docs.python.org/3/library/platform.html
 
-from msilib import _directories
 import os
 import _osx_support as osx
 
