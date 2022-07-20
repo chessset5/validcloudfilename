@@ -50,8 +50,13 @@ def thisandlowerrename():
 
     path = os.walk(".")
     for dirpath, dirnames, filenames in path:
-
-        break
+        fileset = set(filenames)
+        for file in filenames:
+            newName = stringClean(file)
+            lastSetSize = fileset.__len__
+            newName.__add__(newName)
+            if fileset.__len__ == lastSetSize:
+                break
 
     return
 
@@ -71,12 +76,20 @@ def printdirtf():
 
 
 def stringClean(input: str) -> str:
+    '''
+        TODO
+            TEST THIS FUNCTION
+    '''
+    
     # Takes in a string and removes all invalid characters accoring to OneDrive
     badString = "\"/\*:?|<>"
+    worseString = ""
     output = ""
     for c in input:
         if c in badString:
             output += " "
+        elif c in worseString:
+            continue
         else:
             output += c
     return output
