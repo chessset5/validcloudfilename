@@ -1,4 +1,6 @@
 .DS_Store
+.vscode
+#These two are local test files.
 Terminal Saved Output.txt
 Terminal Saved Output2.txt
-#.vscode
+
