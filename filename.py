@@ -79,22 +79,29 @@ def removeDiplicateSpaces(input: str) -> str:
     # eg "a    a" -> "a a", "a   a  b" -> "a a b"
     ret = str()
     for c in input:
+        ret += c
         if ret.__len__ > 0:
-            if (c != ' ') or (ret[-1] != c):
-                ret += c
+            if (c == ' ') and (ret[-1] == c):
+                ret = ret[:-1]
 
     return ret
 
 
 def stringClean(input: str) -> str:
+    # Takes in a string and removes all invalid characters accoring to OneDrive
     '''
         TODO
             TEST THIS FUNCTION
     '''
 
-    # Takes in a string and removes all invalid characters accoring to OneDrive
+    # Characters invalid for OneDrive. These will be replaced by spaces.
     badString = "\"/\*:?|<>"
-    worseString = ""
+    # Unicode characters that could cause problems. These will not be added to the return string
+    worseString = "\u0020\u00A0\u1680\u180E\u2000\u2001\
+                    \u2002\u2003\u2004\u2005\u2006\u2007\
+                    \u2008\u2009\u200A\u200B\u202F\u205F\
+                    \u3000\uFEFF"
+
     output = ""
     for c in input:
         if c in badString:
