@@ -5,6 +5,8 @@
 .vscode
 .pytest_cache
 __pycache__
+Test_Cases
+
 
 #These two are local test files.
 Terminal Saved Output.txt
