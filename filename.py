@@ -75,12 +75,23 @@ def printdirtf():
     return
 
 
+def removeDiplicateSpaces(input: str) -> str:
+    # eg "a    a" -> "a a", "a   a  b" -> "a a b"
+    ret = str()
+    for c in input:
+        if ret.__len__ > 0:
+            if (c != ' ') or (ret[-1] != c):
+                ret += c
+
+    return ret
+
+
 def stringClean(input: str) -> str:
     '''
         TODO
             TEST THIS FUNCTION
     '''
-    
+
     # Takes in a string and removes all invalid characters accoring to OneDrive
     badString = "\"/\*:?|<>"
     worseString = ""
