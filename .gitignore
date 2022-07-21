@@ -1,1 +1,12 @@
+#Local Mac Specific Files
 .DS_Store
+
+#Local Folders
+.vscode
+.pytest_cache
+__pycache__
+
+#These two are local test files.
+Terminal Saved Output.txt
+Terminal Saved Output2.txt
+
