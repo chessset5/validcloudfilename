@@ -1,5 +1,5 @@
 import unittest
-from .. import filename
+import ../filename
 
 
 class Test_stringClean(unittest.TestCase):
