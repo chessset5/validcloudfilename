@@ -1,20 +1,25 @@
 r'''
-# TODO:
-#   Scan through ever file and directory of the OneDrive.
-#   Check each file and folders name
-#   Make sure each file and folder has a legal name
-#       Make sure that all the characters in the file or folder does not contain an illegal character
-#           If the name is illegal, clean it
-#               If there is an illegal character replace it with a space
+## This file is a script that runs through and renames files in the current and all sub directories.
+'''
+
+'''
+TODO:
+  Scan through ever file and directory of the OneDrive.
+  Check each file and folders name
+  Make sure each file and folder has a legal name
+      Make sure that all the characters in the file or folder does not contain an illegal character
+          If the name is illegal, clean it
+              If there is an illegal character replace it with a space
 '''
 
 # https://www.adamsmith.haus/python/answers/how-to-traverse-a-directory-in-python
 # https://docs.python.org/3/library/platform.html
 
+
+
+
 import os
 import _osx_support as osx
-
-
 def main():
     # thisandlowerrename()
     printdirtf()
