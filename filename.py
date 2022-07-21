@@ -56,12 +56,16 @@ def thisandlowerrename():
     path = os.walk(".")
     for dirpath, dirnames, filenames in path:
         fileset = set(filenames)
-        for file in filenames:
-            newName = stringClean(file)
-            lastSetSize = fileset.__len__
-            newName.__add__(newName)
-            if fileset.__len__ == lastSetSize:
-                break
+
+        # redo this code from here A15
+            for file in filenames:
+                newName = stringClean(file)
+                lastSetSize = fileset.__len__
+                newName.__add__(newName)
+                if fileset.__len__ == lastSetSize:
+                    # finish this code
+                    break
+        # to here A15
 
     return
 
