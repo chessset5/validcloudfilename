@@ -58,13 +58,13 @@ def thisandlowerrename():
         fileset = set(filenames)
 
         # redo this code from here A15
-            for file in filenames:
-                newName = stringClean(file)
-                lastSetSize = fileset.__len__
-                newName.__add__(newName)
-                if fileset.__len__ == lastSetSize:
-                    # finish this code
-                    break
+        # for file in filenames:
+        #     newName = stringClean(file)
+        #     lastSetSize = fileset.__len__
+        #     newName.__add__(newName)
+        #     if fileset.__len__ == lastSetSize:
+        #         # finish this code
+        #         break
         # to here A15
 
     return
@@ -86,6 +86,10 @@ def printdirtf():
 
 def removeDiplicateSpaces(input: str) -> str:
     # eg "a    a" -> "a a", "a   a  b" -> "a a b"
+    '''
+        TODO
+            TEST THIS FUNCTION
+    '''
     ret = str()
     for c in input:
         ret += c
