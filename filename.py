@@ -1,6 +1,10 @@
-r'''
+'''
 ## This file is a script that runs through and renames files in the current and all sub directories.
 '''
+
+import os
+import _osx_support as osx
+
 
 '''
 TODO:
@@ -16,13 +20,12 @@ TODO:
 # https://docs.python.org/3/library/platform.html
 
 
+def main():
+    # thisandlowerrename()
+    printdirtf()
+    return
 
 
-import os
-import _osx_support as osx
-from ossaudiodev import control_names
-from unittest.util import strclass
-from xmlrpc.client import boolean
 class stringclean:
     # string cleaning class
 
@@ -92,12 +95,6 @@ class stringclean:
             else:
                 output += c
         return output
-
-
-def main():
-    # thisandlowerrename()
-    printdirtf()
-    return
 
 
 def thisandlowerrename():
