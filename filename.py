@@ -20,6 +20,80 @@ TODO:
 
 import os
 import _osx_support as osx
+from ossaudiodev import control_names
+from unittest.util import strclass
+from xmlrpc.client import boolean
+class stringclean:
+    # string cleaning class
+
+    # Characters invalid for OneDrive.
+    __badString = "\"/\*:?|<>"
+    # Unicode white space characters that could cause problems.
+    __worseString = "\u0020\u00A0\u1680\u180E\u2000\u2001\
+                    \u2002\u2003\u2004\u2005\u2006\u2007\
+                    \u2008\u2009\u200A\u200B\u202F\u205F\
+                    \u3000\uFEFF"
+    # Superseeds bad and worse strings.
+    __goodString = ""
+
+    def __init__(self):
+        # removing good space in worseString
+        self.__worseString = self.__worseString.replace(" ", "")
+
+    def addToGoodString(self, input: str) -> str:
+        self.__goodString += input
+        return self.__goodString
+
+    def replaceGoodString(self, input: str) -> str:
+        self.__goodString = input
+        return self.__goodString
+
+    def addToBadString(self, input: str) -> str:
+        self.__badString += input
+        return self.__badString
+
+    def replaceBadString(self, input: str) -> str:
+        self.__badString = input
+        return self.__badString
+
+    def addToWorseString(self, input: str) -> str:
+        self.__worseString += input
+        return self.__worseString
+
+    def removeDiplicateSpaces(input: str) -> str:
+        # eg "a    a" -> "a a", "a   a  b" -> "a a b"
+        ret = str()
+        for c in input:
+            ret += c
+            if ret.__len__() > 1:
+                if (c == ' ') and (ret[-2] == c):
+                    ret = ret[:-1]
+
+        return ret
+
+    def containsBadChar(self, input: str) -> boolean:
+        # contains true if bad string
+        output = ""
+        for c in input:
+            if c in self.__goodString:
+                continue
+            elif c in self.__badString:
+                return True
+            elif c in self.__worseString:
+                return True
+        return False
+
+    def stringClean(self, input: str) -> str:
+        # Takes in a string and removes all invalid characters accoring to OneDrive
+        output = ""
+        for c in input:
+            if c in self.__badString or self.__worseString:
+                output += " "
+            else:
+                output += c
+        return output
+
+
 def main():
     # thisandlowerrename()
     printdirtf()
@@ -56,16 +130,8 @@ def thisandlowerrename():
     path = os.walk(".")
     for dirpath, dirnames, filenames in path:
         fileset = set(filenames)
-
-        # redo this code from here A15
-        # for file in filenames:
-        #     newName = stringClean(file)
-        #     lastSetSize = fileset.__len__
-        #     newName.__add__(newName)
-        #     if fileset.__len__ == lastSetSize:
-        #         # finish this code
-        #         break
-        # to here A15
+        for file in filenames:
+            if()
 
     return
 
@@ -82,45 +148,6 @@ def printdirtf():
             print("\tfile:\tf:"+file)
 
     return
-
-
-def removeDiplicateSpaces(input: str) -> str:
-    # eg "a    a" -> "a a", "a   a  b" -> "a a b"
-    '''
-        TODO
-            TEST THIS FUNCTION
-    '''
-    ret = str()
-    for c in input:
-        ret += c
-        if ret.__len__() > 1:
-            if (c == ' ') and (ret[-2] == c):
-                ret = ret[:-1]
-
-    return ret
-
-
-def stringClean(input: str) -> str:
-    # Takes in a string and removes all invalid characters accoring to OneDrive
-
-    # Characters invalid for OneDrive. These will be replaced by spaces.
-    badString = "\"/\*:?|<>"
-    # Unicode white space characters that could cause problems. These will not be added to the return string
-    worseString = "\u0020\u00A0\u1680\u180E\u2000\u2001\
-                    \u2002\u2003\u2004\u2005\u2006\u2007\
-                    \u2008\u2009\u200A\u200B\u202F\u205F\
-                    \u3000\uFEFF"
-    worseString = worseString.replace(" ", "")
-
-    output = ""
-    for c in input:
-        if c in badString:
-            output += " "
-        elif c in worseString:
-            continue
-        else:
-            output += c
-    return output
 
 
 if __name__ == "__main__":
