@@ -93,8 +93,8 @@ def removeDiplicateSpaces(input: str) -> str:
     ret = str()
     for c in input:
         ret += c
-        if ret.__len__() > 0:
-            if (c == ' ') and (ret[-1] == c):
+        if ret.__len__() > 1:
+            if (c == ' ') and (ret[-2] == c):
                 ret = ret[:-1]
 
     return ret
@@ -102,10 +102,6 @@ def removeDiplicateSpaces(input: str) -> str:
 
 def stringClean(input: str) -> str:
     # Takes in a string and removes all invalid characters accoring to OneDrive
-    '''
-        TODO
-            TEST THIS FUNCTION
-    '''
 
     # Characters invalid for OneDrive. These will be replaced by spaces.
     badString = "\"/\*:?|<>"

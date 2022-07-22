@@ -51,6 +51,12 @@ class Test_removeDiplicateSpaces(unittest.TestCase):
     def test_removeDiplicateSpaces4(self):
         self.assertEqual(filename.removeDiplicateSpaces("        "), " ")
 
+    def test_removeDiplicateSpaces5(self):
+        self.assertEqual(filename.removeDiplicateSpaces("  "), " ")
+    
+    def test_removeDiplicateSpaces6(self):
+        self.assertEqual(filename.removeDiplicateSpaces(" "), " ")
+
 
 if __name__ == '__main__':
     unittest.main()
