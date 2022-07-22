@@ -1,5 +1,6 @@
 # https://code.visualstudio.com/docs/python/testing
-from .. import filename
+# from .. import filename
+import filename
 import unittest
 
 
