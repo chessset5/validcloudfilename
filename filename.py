@@ -74,7 +74,7 @@ class stringclean:
 
         return ret
 
-    def containsBadChar(self, input: str) -> boolean:
+    def containsBadChar(self, input: str) -> bool:
         # contains true if bad string
         output = ""
         for c in input:
@@ -90,7 +90,7 @@ class stringclean:
         # Takes in a string and removes all invalid characters accoring to OneDrive
         output = ""
         for c in input:
-            if c in self.__badString or self.__worseString:
+            if c in (self.__badString or self.__worseString):
                 output += " "
             else:
                 output += c
@@ -128,7 +128,8 @@ def thisandlowerrename():
     for dirpath, dirnames, filenames in path:
         fileset = set(filenames)
         for file in filenames:
-            if()
+            if():
+                return
 
     return
 
