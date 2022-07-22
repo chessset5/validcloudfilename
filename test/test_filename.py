@@ -1,6 +1,6 @@
 # https://code.visualstudio.com/docs/python/testing
-import unittest
 from .. import filename
+import unittest
 
 
 class Test_stringClean(unittest.TestCase):
