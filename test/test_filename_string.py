@@ -69,6 +69,5 @@ class Test_removeDiplicateSpaces(unittest.TestCase):
         self.assertEqual(self.s.removeDiplicateSpaces(" "), " ")
 
 
-
 if __name__ == '__main__':
     unittest.main()
