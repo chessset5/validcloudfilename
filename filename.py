@@ -1,9 +1,10 @@
 '''
-## This file is a script that runs through and renames files in the current and all sub directories.
+# This file is a script that runs through and renames files in the current and all sub directories.
 '''
 
 import os
 import _osx_support as osx
+from turtle import dot
 
 
 '''
@@ -26,7 +27,7 @@ def main():
     return
 
 
-class stringclean:
+class filestring:
     # string cleaning class
 
     # Characters invalid for OneDrive.
@@ -71,7 +72,6 @@ class stringclean:
             if ret.__len__() > 1:
                 if (c == ' ') and (ret[-2] == c):
                     ret = ret[:-1]
-
         return ret
 
     def containsBadChar(self, input: str) -> bool:
@@ -80,9 +80,7 @@ class stringclean:
         for c in input:
             if c in self.__goodString:
                 continue
-            elif c in self.__badString:
-                return True
-            elif c in self.__worseString:
+            elif (c in self.__badString) or (c in self.__worseString):
                 return True
         return False
 
@@ -90,11 +88,21 @@ class stringclean:
         # Takes in a string and removes all invalid characters accoring to OneDrive
         output = ""
         for c in input:
-            if (c in self.__badString) or (c in self.__worseString):
+            if c in self.__goodString:
+                output += c
+            elif (c in self.__badString) or (c in self.__worseString):
                 output += " "
             else:
                 output += c
         return output
+
+    def getFileType(self, input: str) -> str:
+        ret = ""
+        dotpos = input.rfind(".")
+        if dotpos > 0:
+            # ret = dotpos to end of str
+            ret = input[dotpos:]
+        return ret
 
 
 def thisandlowerrename():
@@ -125,11 +133,37 @@ def thisandlowerrename():
     # Testing VS Code using iPad OS Web App using GitHub
 
     path = os.walk(".")
+    ignorelist = [str()]
+    ignorelist.append(".DS_Store")
+
     for dirpath, dirnames, filenames in path:
-        fileset = set(filenames)
-        for file in filenames:
-            if():
-                return
+        s = filestring()
+        renamepos = [False]*(len(filenames))
+        renamelst = filenames
+
+        # find files to rename
+        for i in range(len(filenames)):
+            if filenames[i] in ignorelist:
+                continue
+            # new file name
+            nfn = s.removeDiplicateSpaces(s.stringClean(filenames[i]))
+
+            # adding (#)
+            c = 0
+            while(nfn in renamelst):
+                # -1 if there is no dot, like a pure data or make file
+                dotpos = nfn.rfind(".")
+                # not a .DS_Store Files
+                if(dotpos != 0):
+                    continue
+            if (renamelst[i] != filenames[i]):
+                renamepos[i] = True
+
+        # renaming files
+        for i in range(len(renamepos)):
+            if renamepos[i] == True:
+                # TODO: Figure out how rename and renames work
+                os.rename(dirpath, dirpath)
 
     return
 

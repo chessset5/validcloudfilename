@@ -6,7 +6,7 @@ import unittest
 
 class Test_stringCleanBadString(unittest.TestCase):
     # bad strings
-    s = filename.stringclean()
+    s = filename.filestring()
 
     def test_badstrings0(self):
         self.assertEqual(self.s.stringClean("f//alamf3fw0"), "f  alamf3fw0")
@@ -15,10 +15,14 @@ class Test_stringCleanBadString(unittest.TestCase):
         self.assertEqual(self.s.stringClean("CS 131/CSCI 1310/ Fundamentals of Computer Systems"),
                          "CS 131 CSCI 1310  Fundamentals of Computer Systems")
 
+    def test_badstrings1(self):
+        self.assertEqual(self.s.stringClean("Preparing for Checkpoint #5/ CSC130 Data Structure+Algorithm Analy - SECTION 05.pdf"),
+                         "Preparing for Checkpoint #5  CSC130 Data Structure+Algorithm Analy - SECTION 05.pdf")
+
 
 class Test_stringCleanWorseString(unittest.TestCase):
     # worse string
-    s = filename.stringclean()
+    s = filename.filestring()
 
     def test_worsestrings0(self):
         self.assertEqual(self.s.stringClean("\u200B\u200B\u200B"), "   ")
@@ -41,7 +45,7 @@ class Test_stringCleanWorseString(unittest.TestCase):
 
 
 class Test_removeDiplicateSpaces(unittest.TestCase):
-    s = filename.stringclean()
+    s = filename.filestring()
 
     def test_removeDiplicateSpaces0(self):
         self.assertEqual(self.s.removeDiplicateSpaces("a    a"), "a a")
@@ -63,6 +67,19 @@ class Test_removeDiplicateSpaces(unittest.TestCase):
 
     def test_removeDiplicateSpaces6(self):
         self.assertEqual(self.s.removeDiplicateSpaces(" "), " ")
+
+
+class Test_returnFileType(unittest.TestCase):
+    s = filename.filestring()
+
+    def test_getFileType1(self):
+        self.assertEqual(self.s.getFileType(".DS_Store"), "")
+
+    def test_getFileType2(self):
+        self.assertEqual(self.s.getFileType("__pycache__"), "")
+
+    def test_getFileType3(self):
+        self.assertEqual(self.s.getFileType("apple.txt"),".txt")
 
 
 if __name__ == '__main__':
