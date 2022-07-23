@@ -202,7 +202,7 @@ def thisandlowerrename():
             # check if new file name isn't already used in dir
             while(nfn in filenames):
                 # if new file name is in filenames than it is already used
-
+                break
                 # TODO: FINISH THIS CODE
                 # USE THE filestring.incFileName() function
                 # FINISH filestring.incFileName() functionc
