@@ -63,7 +63,7 @@ class stringclean:
         self.__worseString += input
         return self.__worseString
 
-    def removeDiplicateSpaces(input: str) -> str:
+    def removeDiplicateSpaces(self, input: str) -> str:
         # eg "a    a" -> "a a", "a   a  b" -> "a a b"
         ret = str()
         for c in input:
@@ -90,7 +90,7 @@ class stringclean:
         # Takes in a string and removes all invalid characters accoring to OneDrive
         output = ""
         for c in input:
-            if c in (self.__badString or self.__worseString):
+            if (c in self.__badString) or (c in self.__worseString):
                 output += " "
             else:
                 output += c

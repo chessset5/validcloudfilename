@@ -31,7 +31,7 @@ class Test_stringCleanWorseString(unittest.TestCase):
         self.assertEqual(self.s.stringClean("\u0020\u00A0\u1680\u180E\u2000\u2001\
 \u2002\u2003\u2004\u2005\u2006\u2007\
 \u2008\u2009\u200A\u200B\u202F\u205F\
-\u3000\uFEFF"), "                   ")
+\u3000\uFEFF"), "                    ")
 
     def test_worsestrings3(self):
         self.assertEqual(self.s.stringClean("a\u0020\u00A0\u1680\u180Ea\u2000\u2001\
