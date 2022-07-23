@@ -69,18 +69,6 @@ class Test_removeDiplicateSpaces(unittest.TestCase):
         self.assertEqual(self.s.removeDiplicateSpaces(" "), " ")
 
 
-class Test_returnFileType(unittest.TestCase):
-    s = filename.filestring()
-
-    def test_getFileType1(self):
-        self.assertEqual(self.s.getFileType(".DS_Store"), "")
-
-    def test_getFileType2(self):
-        self.assertEqual(self.s.getFileType("__pycache__"), "")
-
-    def test_getFileType3(self):
-        self.assertEqual(self.s.getFileType("apple.txt"),".txt")
-
 
 if __name__ == '__main__':
     unittest.main()

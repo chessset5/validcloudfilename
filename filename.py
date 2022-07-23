@@ -2,9 +2,11 @@
 # This file is a script that runs through and renames files in the current and all sub directories.
 '''
 
+from lib2to3.pgen2.token import EQUAL
 import os
 import _osx_support as osx
 from turtle import dot
+from typing import Tuple
 
 
 '''
@@ -97,12 +99,56 @@ class filestring:
         return output
 
     def getFileType(self, input: str) -> str:
+        # TODO: test this function
         ret = ""
         dotpos = input.rfind(".")
         if dotpos > 0:
             # ret = dotpos to end of str
             ret = input[dotpos:]
+        if(not ret.isalnum):
+            ret = ""
         return ret
+
+    def incFileName(self, filename: str, filetype: str) -> str:
+        # TODO: Test Function
+
+        # "inline" function for a file with no increment, ie (#), yet.
+        def __newIncFile(oldname: str) -> str:
+            return oldname + "(0)"
+
+        if(filename[-1] == ")"):
+
+            # eg: apple(1).txt -> 1
+            num = filename[filename.rfind("(")+1:filename.rfind(")")]
+            # new file name
+            nfn = filename[:filename.rfind("(")]
+            if (num.isdigit):
+                num = int(num)
+                if(num < 0):
+                    num = 0
+                else:
+                    num = int(num) + 1
+                filename = nfn + "(" + str(num) + ")"
+            else:
+                filename = __newIncFile(filename)
+        else:
+            filename = __newIncFile(filename)
+
+        return filename + filetype
+
+    def incFileName(self, input: str) -> str:
+        # TODO: test function
+        return self.incFileName(self.fileSplit(input))
+
+    def fileSplit(self, input: str) -> Tuple[str, str]:
+        # returns file name and file type respectfully
+
+        # TODO: test function
+
+        head, tail = str()
+        tail = self.getFileType(input)
+        head = input.removesuffix(tail)
+        return [head, tail]
 
 
 def thisandlowerrename():
@@ -145,25 +191,29 @@ def thisandlowerrename():
         for i in range(len(filenames)):
             if filenames[i] in ignorelist:
                 continue
+
             # new file name
             nfn = s.removeDiplicateSpaces(s.stringClean(filenames[i]))
 
-            # adding (#)
-            c = 0
-            while(nfn in renamelst):
-                # -1 if there is no dot, like a pure data or make file
-                dotpos = nfn.rfind(".")
-                # not a .DS_Store Files
-                if(dotpos != 0):
-                    continue
-            if (renamelst[i] != filenames[i]):
-                renamepos[i] = True
+            # if no new name change, go to next file.
+            if nfn == filenames[i]:
+                continue
 
-        # renaming files
+            # check if new file name isn't already used in dir
+            while(nfn in filenames):
+                # if new file name is in filenames than it is already used
+
+                # TODO: FINISH THIS CODE
+                # USE THE filestring.incFileName() function
+                # FINISH filestring.incFileName() functionc
+                # FINISH CODE
+
+                # renaming files
         for i in range(len(renamepos)):
             if renamepos[i] == True:
                 # TODO: Figure out how rename and renames work
-                os.rename(dirpath, dirpath)
+                os.renames(os.path.join(dirpath, filenames[i]), os.path.join(
+                    dirpath, renamelst[i]))
 
     return
 
