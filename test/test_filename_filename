@@ -34,7 +34,8 @@ class Test_fileSplit(unittest.TestCase):
         self.assertEqual(self.s.fileSplit("appletxt"), ["appletext", ""])
 
     def test_filesplit4(self):
-        self.assertEqual(self.s.fileSplit("apple.test(1213)"),["apple.test(1213)",""])
+        self.assertEqual(self.s.fileSplit("apple.test(1213)"),
+                         ["apple.test(1213)", ""])
 
 
 class Test_oneIncFileName(unittest.TestCase):
@@ -96,37 +97,42 @@ class Test_oneIncFileName(unittest.TestCase):
     def test_1ifn6_1(self):
         self.assertEqual(self.s.incFileName("(apple).txt"), "(apple)(0).txt")
 
+    def test_1ifn7(self):
+        self.assertEqual(self.s.incFileName(
+            "(apple)(0).txt(0)"), "(apple)(0).txt(0)")
+
 
 class Test_twoIncFileName(unittest.TestCase):
-    # TODO: convert these test to tuple
 
     s = filename.filestring()
 
     def test_1ifn0(self):
-        self.assertEqual(self.s.incFileName("apple.txt"), "apple(0).txt")
+        self.assertEqual(self.s.incFileName("apple", ".txt"), "apple(0).txt")
 
     def test_1ifn1(self):
-        self.assertEqual(self.s.incFileName("apple(-5).txt"), "apple(0).txt")
+        self.assertEqual(self.s.incFileName(
+            "apple(-5)", ".txt"), "apple(0).txt")
 
     def test_1ifn2(self):
-        self.assertEqual(self.s.incFileName("apple(-1).txt"), "apple(0).txt")
-
-    def test_1ifn3(self):
-        self.assertEqual(self.s.incFileName("apple(0).txt"), "apple(1).txt")
+        self.assertEqual(self.s.incFileName(
+            "apple(-1)", ".txt"), "apple(0).txt")
 
     def test_1ifn3(self):
         self.assertEqual(self.s.incFileName(
-            "apple(3456).txt"), "apple(3457).txt")
+            "apple(0)", ".txt"), "apple(1).txt")
+
+    def test_1ifn3(self):
+        self.assertEqual(self.s.incFileName(
+            "apple(3456)", ".txt"), "apple(3457).txt")
 
     def test_1ifn4(self):
-        self.assertEqual(self.s.incFileName("apple(-1)).txt"),
+        self.assertEqual(self.s.incFileName("apple(-1))", ".txt"),
                          "apple(-1))(0).txt")
 
     def test_1ifn5(self):
-        self.assertEqual(self.s.incFileName("(0)apple.txt"), "(0)apple(0).txt")
+        self.assertEqual(self.s.incFileName(
+            "(0)apple", ".txt"), "(0)apple(0).txt")
 
     def test_1ifn6(self):
-        self.assertEqual(self.s.incFileName("(apple).txt"), "(apple)(0).txt")
-
-    def test_1ifn7(self):
-        self.assertEqual(self.s.incFileName("(apple)(0).txt(0)"), "(apple)(0).txt(0)")
+        self.assertEqual(self.s.incFileName(
+            "(apple)", ".txt"), "(apple)(0).txt")
