@@ -2,11 +2,8 @@
 # This file is a script that runs through and renames files in the current and all sub directories.
 '''
 
-from lib2to3.pgen2.token import EQUAL
 import os
 import _osx_support as osx
-from turtle import dot
-from typing import Tuple
 
 
 '''
