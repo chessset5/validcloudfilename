@@ -2,6 +2,7 @@
 # This file is a script that runs through and renames files in the current and all sub directories.
 '''
 
+from argparse import FileType
 import os
 import _osx_support as osx
 
@@ -96,17 +97,56 @@ class filestring:
         return output
 
     def getFileType(self, input: str) -> str:
+        # Gets the file name of a string if there is one
+
         # TODO: test this function
+
         ret = ""
         dotpos = input.rfind(".")
         if dotpos > 0:
             # ret = dotpos to end of str
             ret = input[dotpos:]
-        if(not ret.isalnum):
-            ret = ""
+            if(not ret[1:].isalnum()):
+                ret = ""
         return ret
 
-    def incFileName(self, filename: str, filetype: str) -> str:
+    def incFileName(self, input) -> str:
+        # Increment File Name if input can be recognised
+
+        if type(input) == str:
+            return self.incFileNameS(input)
+        if type(input) == tuple:
+            return self.incFileNameT(input)
+        if type(input) == list:
+            if len(input) == 2:
+                return self.incFileNameT(tuple(input))
+        return str(input)
+
+    def incFileNameS(self, input: str) -> str:
+        # Increment File Name, String Input
+
+        # TODO: test function
+
+        filename, filetype = (self.fileSplit(input))
+        return self.__incFileName(filename, filetype)
+
+    def incFileNameHT(self, filename: str, filetype: str) -> str:
+        # Increment File Name, Head String, Tail String Input
+
+        # TODO: test function
+
+        return self.__incFileName(filename, filetype)
+
+    def incFileNameT(self, input: tuple[str, str]) -> str:
+        # Increment File Name, String Input
+
+        # TODO: test function
+
+        return self.__incFileName(input[0], input[1])
+
+    def __incFileName(self, filename: str, filetype: str) -> str:
+        # Increment File Name, String Input
+
         # TODO: Test Function
 
         # "inline" function for a file with no increment, ie (#), yet.
@@ -117,10 +157,15 @@ class filestring:
 
             # eg: apple(1).txt -> 1
             num = filename[filename.rfind("(")+1:filename.rfind(")")]
+            t = ""
+            if(num[0] == "-"):
+                t = num[0]
+                num = num.replace("-", "")
+
             # new file name
             nfn = filename[:filename.rfind("(")]
-            if (num.isdigit):
-                num = int(num)
+            if (num.isdigit()):
+                num = int(t+num)
                 if(num < 0):
                     num = 0
                 else:
@@ -133,16 +178,11 @@ class filestring:
 
         return filename + filetype
 
-    def incFileName(self, input: str) -> str:
-        # TODO: test function
-        return self.incFileName(self.fileSplit(input))
-
-    def fileSplit(self, input: str) -> Tuple[str, str]:
+    def fileSplit(self, input: str) -> tuple[str, str]:
         # returns file name and file type respectfully
 
         # TODO: test function
 
-        head, tail = str()
         tail = self.getFileType(input)
         head = input.removesuffix(tail)
         return [head, tail]
