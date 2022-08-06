@@ -17,6 +17,9 @@ class Test_returnFileType(unittest.TestCase):
     def test_getFileType4(self):
         self.assertEqual(self.s.getFileType("apple.(021)txt"), "")
 
+    def test_getFileType4(self):
+        self.assertEqual(self.s.getFileType("foo.1a"), "")
+
 
 class Test_fileSplit(unittest.TestCase):
     s = filename.filestring()

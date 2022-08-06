@@ -75,7 +75,8 @@ class filestring:
     def stringClean(self, input: str) -> str:
         # Takes in a string and removes all invalid characters accoring to OneDrive
         output = ""
-        for c in input:
+        for i in range(len(input)):
+            c = input[i]
             if c in self.__goodString:
                 output += c
             elif (c in self.__badString) or (c in self.__worseString):
@@ -91,7 +92,7 @@ class filestring:
         if dotpos > 0:
             # ret = dotpos to end of str
             ret = input[dotpos:]
-            if(not ret[1:].isalnum()):
+            if(not ret[1:].isalpha()):
                 ret = ""
         return ret
 
@@ -180,6 +181,12 @@ def thisandlowerrename():
             # new file name
             head, tail = s.fileSplit(filenames[i])
             head = s.removeDiplicateSpaces(s.stringClean(head))
+
+            # making sure the begining and end of the file isn't " "
+            while(head[0].isspace()):
+                head = head[1:]
+            while(head[-1].isspace()):
+                head = head[:-1]
 
             # if no new name change, go to next file.
             if (head + tail) == filenames[i]:
