@@ -178,7 +178,9 @@ def thisandlowerrename():
                 continue
 
             # new file name
-            nfn = s.removeDiplicateSpaces(s.stringClean(filenames[i]))
+            head, tail = s.fileSplit(filenames[i])
+            head = s.removeDiplicateSpaces(s.stringClean(head))
+            nfn = head+tail
 
             # if no new name change, go to next file.
             if nfn == filenames[i]:
@@ -186,7 +188,8 @@ def thisandlowerrename():
 
             # check if new file name isn't already used in dir
             while(nfn in filenames):
-                nfn = s.incFileNameS(nfn)
+                head, tail = s.fileSplit(s.incFileNameHT(head, tail))
+                nfn = head+tail
 
             # rename the file
             os.renames(os.path.join(
