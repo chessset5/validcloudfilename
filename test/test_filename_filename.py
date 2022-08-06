@@ -45,7 +45,7 @@ class Test_oneIncFileName(unittest.TestCase):
         self.assertEqual(self.s.incFileName("apple.txt"), "apple(0).txt")
 
     def test_1ifn1(self):
-        self.assertEqual(self.s.incFileName("apple(-5).txt"), "apple(0).txt")
+        self.assertEqual(self.s.incFileName("apple(-5).txt"), "apple(-4).txt")
 
     def test_1ifn2(self):
         self.assertEqual(self.s.incFileName("apple(-1).txt"), "apple(0).txt")
@@ -111,7 +111,7 @@ class Test_tupleIncFileName(unittest.TestCase):
 
     def test_1ifn1(self):
         self.assertEqual(self.s.incFileName([
-            "apple(-5)", ".txt"]), "apple(0).txt")
+            "apple(-5)", ".txt"]), "apple(-4).txt")
 
     def test_1ifn2(self):
         self.assertEqual(self.s.incFileName([
@@ -148,7 +148,7 @@ class Test_tupleIncFileNameT(unittest.TestCase):
 
     def test_1ifn1(self):
         self.assertEqual(self.s.incFileNameT([
-            "apple(-5)", ".txt"]), "apple(0).txt")
+            "apple(-10)", ".txt"]), "apple(-9).txt")
 
     def test_1ifn2(self):
         self.assertEqual(self.s.incFileNameT([

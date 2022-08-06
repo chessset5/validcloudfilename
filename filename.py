@@ -1,8 +1,7 @@
 '''
-# This file is a script that runs through and renames files in the current and all sub directories.
+This file is a script that runs through and renames files in the current and all sub directories.
 '''
 
-from argparse import FileType
 import os
 import _osx_support as osx
 
@@ -98,9 +97,6 @@ class filestring:
 
     def getFileType(self, input: str) -> str:
         # Gets the file name of a string if there is one
-
-        # TODO: test this function
-
         ret = ""
         dotpos = input.rfind(".")
         if dotpos > 0:
@@ -112,7 +108,6 @@ class filestring:
 
     def incFileName(self, input) -> str:
         # Increment File Name if input can be recognised
-
         if type(input) == str:
             return self.incFileNameS(input)
         if type(input) == tuple:
@@ -124,65 +119,51 @@ class filestring:
 
     def incFileNameS(self, input: str) -> str:
         # Increment File Name, String Input
-
-        # TODO: test function
-
         filename, filetype = (self.fileSplit(input))
         return self.__incFileName(filename, filetype)
 
     def incFileNameHT(self, filename: str, filetype: str) -> str:
         # Increment File Name, Head String, Tail String Input
-
-        # TODO: test function
-
         return self.__incFileName(filename, filetype)
 
     def incFileNameT(self, input: tuple[str, str]) -> str:
         # Increment File Name, String Input
-
-        # TODO: test function
-
         return self.__incFileName(input[0], input[1])
 
     def __incFileName(self, filename: str, filetype: str) -> str:
         # Increment File Name, String Input
 
-        # TODO: Test Function
-
         # "inline" function for a file with no increment, ie (#), yet.
         def __newIncFile(oldname: str) -> str:
             return oldname + "(0)"
 
-        if(filename[-1] == ")"):
-
+        if(filename[-1] != ")"):
+            filename = __newIncFile(filename)
+        else:  # filename[-1] == ")"
             # eg: apple(1).txt -> 1
             num = filename[filename.rfind("(")+1:filename.rfind(")")]
-            t = ""
+            sign = 1
+
+            # negative number value
             if(num[0] == "-"):
-                t = num[0]
-                num = num.replace("-", "")
+                # str().isdigit() will return False if the number is negative, ie "-1".isdigit() == False
+                # so we have to do this stupid thing
+                sign = (-1)
+                num = num[1:]  # apple -> pple
 
             # new file name
             nfn = filename[:filename.rfind("(")]
-            if (num.isdigit()):
-                num = int(t+num)
-                if(num < 0):
-                    num = 0
-                else:
-                    num = int(num) + 1
-                filename = nfn + "(" + str(num) + ")"
-            else:
+            if (num.isdigit() == False):
                 filename = __newIncFile(filename)
-        else:
-            filename = __newIncFile(filename)
+            else:  # num.isdigit() == True
+                num = sign*int(num)
+                num = int(num) + 1
+                filename = nfn + "(" + str(num) + ")"
 
         return filename + filetype
 
     def fileSplit(self, input: str) -> tuple[str, str]:
         # returns file name and file type respectfully
-
-        # TODO: test function
-
         tail = self.getFileType(input)
         head = input.removesuffix(tail)
         return [head, tail]
@@ -192,40 +173,18 @@ def thisandlowerrename():
     # Traverses the directories from the script
     # to the end of the subdirectories scanning
     # and fixing invalid names
-    '''
-        TODO:
-            Loop though the directories
-                For each dir load all the file names into a set
-                Make a list for renames
-                loop Check all names against a character checker function
-                    TODO:
-                        Make Character Checker Function
-                    If the name is bad run it through the stringClean() funciton
-                    Add the name to the filename set
-                    If the set size doesn't increase see if the file name has a postfix (#)
-                    TODO:
-                        Make a function that checks for postfix
-                        Make a function that adds a postfix
-                    loop until set size increases
-                        If it does have a postfix, incriment current file
-                        end loop
-                end loop
-            end loop
-    '''
 
-    # Testing VS Code using iPad OS Web App using GitHub
-
+    # path is a list of "tuple" [{str,list,list}], currnet dir path, list of child dir names, list of file name
     path = os.walk(".")
     ignorelist = [str()]
     ignorelist.append(".DS_Store")
 
     for dirpath, dirnames, filenames in path:
-        s = filestring()
-        renamepos = [False]*(len(filenames))
-        renamelst = filenames
+        s = filestring()  # for filestring() functions
 
         # find files to rename
         for i in range(len(filenames)):
+            # if in ignore list go to next item
             if filenames[i] in ignorelist:
                 continue
 
@@ -238,19 +197,11 @@ def thisandlowerrename():
 
             # check if new file name isn't already used in dir
             while(nfn in filenames):
-                # if new file name is in filenames than it is already used
-                break
-                # TODO: FINISH THIS CODE
-                # USE THE filestring.incFileName() function
-                # FINISH filestring.incFileName() functionc
-                # FINISH CODE
+                nfn = s.incFileNameS(nfn)
 
-                # renaming files
-        for i in range(len(renamepos)):
-            if renamepos[i] == True:
-                # TODO: Figure out how rename and renames work
-                os.renames(os.path.join(dirpath, filenames[i]), os.path.join(
-                    dirpath, renamelst[i]))
+            # rename the file
+            os.renames(os.path.join(
+                dirpath, filenames[i]), os.path.join(dirpath, nfn))
 
     return
 
